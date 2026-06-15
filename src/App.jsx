@@ -18,7 +18,11 @@ const App = () => {
             return;
         }
 
-        const cuota = ((monto + (monto * tasa / 100)) / plazo);
+        const montofloat = parseFloat(monto);  //post prueba: corregido el float
+        const tasafloat = parseFloat(tasa);
+        const plazoentero = parseInt(plazo, 10);
+
+        const cuota = ((montofloat + (montofloat * tasafloat / 100)) / plazoentero);
         /*            (Monto + (Monto × Tasa / 100)) / Plazo  */
 
         let clasificacion;
@@ -41,8 +45,8 @@ const App = () => {
     }
 
     const obtenerColor = () => {
-        if (estado === "Totalmente asumible") return "success";
-        if (estado === "Deuda Equilibrada") return "warning";
+        if (estado === "Cuota Comoda") return "success"; //post prueba: corregido la tipologia con L31
+        if (estado === "Cuota Moderada") return "warning";  //post prueba: corregido la tipologia con L30
         if (estado === "Advertencia de endeudamiento") return "danger";
         return "secondary"
     }
@@ -84,7 +88,7 @@ const App = () => {
                                     <input type="number"
                                         className="form-control"
                                         value={tasa}
-                                        onChange={(e) => setTasa(ParseFloat(e.target.value)) || 0}
+                                        onChange={(e) => setTasa(parseFloat(e.target.value)) || 0}
                                     />
                                 </div>
 
